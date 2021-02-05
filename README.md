@@ -1,6 +1,6 @@
 # Weather App
 
-### Weather API 2.0
+### Open Weather APIs
 - http://api.openweathermap.org/data/2.5/weather
 - http://api.openweathermap.org/data/2.5/forecast
 
