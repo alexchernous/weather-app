@@ -3,11 +3,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
-import '../App.css';
-import constants from '../lib/constants';
-import config from '../config/weather';
-import Menu from './Menu';
-import ForecastTable from './ForecastTable';
+import './lib/styles/App.css';
+import constants from './lib/constants';
+import config from './config/weather';
+import Menu from './components/Menu';
+import ForecastTable from './components/ForecastTable';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
