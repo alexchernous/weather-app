@@ -4,19 +4,31 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 
 const Menu = (props) => {
+  const { title, value, handleChange, menuOptions } = props;
+
+  // Menu items
+  const renderMenuItems = menuOptions.map((option) => (
+    <MenuItem
+      key={option.value}
+      value={option.value}
+    >
+      {option.name}
+    </MenuItem>
+  ));
+
   return (
     <React.Fragment>
-      <InputLabel id='demo-simple-select-outlined-label'>{props.title}</InputLabel>
+      <InputLabel id='select-input-label'>{title}</InputLabel>
       <Select
-        labelId='demo-simple-select-label'
-        id='demo-simple-select'
-        value={props.value}
-        onChange={props.handleChange}
-        label={props.title}
+        labelId='select-label'
+        id='select'
+        value={value}
+        onChange={handleChange}
+        label={title}
       >
-        {props.menuOptions.map((option) => (
-          <MenuItem key={option.value} value={option.value}>{option.name}</MenuItem>
-        ))}
+
+        {/* Render menu options programmatically */}
+        {menuOptions && renderMenuItems}
       </Select>
     </React.Fragment>
   );

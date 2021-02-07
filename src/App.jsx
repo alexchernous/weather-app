@@ -15,9 +15,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
     minWidth: 120,
   },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
   button: {
     marginTop: theme.spacing(2),
   }
@@ -43,33 +40,43 @@ const App = () => {
     setShowForecast(isForecastShown => !isForecastShown);
   };
 
+  // Fetch API data on select menu change
   useEffect(() => {
     if (cityId) {
       axios.get(`https://api.openweathermap.org/data/2.5/weather?id=${cityId}&units=${units}&appid=${config.appid}`)
         .then(res => { setWeather(res.data) })
         .catch(error => { console.log(error) });
-      // TODO: maybe give control of this call to ForecastTable
-      // potentially might solve unnecessary call if forecast isn't expanded...
+
+      /**
+       * Potentially unnecessary call if forecast isn't expanded.
+       *
+       * Since we don't know if user will need/open forecasts,
+       * we might just be putting an
+       * unnecessary load on the browser.
+       *
+       */
       axios.get(`https://api.openweathermap.org/data/2.5/forecast?id=${cityId}&units=${units}&appid=${config.appid}`)
         .then(res => { setForecast(res.data) })
         .catch(error => { console.log(error) });
     }
   }, [cityId, units]);
 
+  // Menu data
   const menus = [
     {
       title: 'City',
       value: cityId,
-      options: constants.cityOptions,
+      options: constants.CITY_OPTIONS,
       handleChange: handleCityChange
     }, {
       title: 'Units',
       value: units,
-      options: constants.unitOptions,
+      options: constants.UNIT_OPTIONS,
       handleChange: handleUnitsChange
     }
   ];
 
+  // Select menus
   const renderMenus = menus.map((menu) => (
     <React.Fragment key={menu.title}>
       <FormControl variant='outlined' className={classes.formControl}>
@@ -84,15 +91,36 @@ const App = () => {
 
   return (
     <div className='App'>
-      <h1>Weather App</h1>
-      <h3>Please select your city and unit preference.</h3>
+      {/* Title */}
+      <h1>{constants.APP_TITLE}</h1>
+      <h3>{constants.APP_SUB_TITLE}</h3>
+
+      {/* Menus */}
       {renderMenus}
+
+      {/* Weather content */}
       {weatherObject &&
         <div>
           <h4>{weatherObject.weather[0].main}</h4>
           <p>{weatherObject.weather[0].description}</p>
-          <h4>{weatherObject.main.temp + ' ' + constants.unitLabels[units].temp}</h4>
-          <p>{'Wind ' + weatherObject.wind.speed + ' ' + constants.unitLabels[units].speed}</p>
+          <h4>
+            {
+              weatherObject.main.temp
+              + ' ' +
+              constants.UNIT_LABELS[units].temp
+            }
+          </h4>
+          <p>
+            {
+              constants.WIND_LABEL
+              + ' ' +
+              weatherObject.wind.speed
+              + ' ' +
+              constants.UNIT_LABELS[units].speed
+            }
+          </p>
+
+          {/* See Forecast button */}
           <div>
             {!isForecastShown &&
               <Button
@@ -107,6 +135,8 @@ const App = () => {
           </div>
         </div>
       }
+
+      {/* Render forecast data table with Close Forecast button */}
       {isForecastShown &&
         <React.Fragment>
           <Button

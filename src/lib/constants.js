@@ -1,5 +1,7 @@
 const constants = {
-  unitLabels: {
+
+  // Unit labels for various measurement standards
+  UNIT_LABELS: {
     metric: {
       temp: '°C',
       speed: 'meter/sec'
@@ -13,7 +15,9 @@ const constants = {
       speed: 'meter/sec'
     }
   },
-  cityOptions: [
+
+  // Predefined city data for menu
+  CITY_OPTIONS: [
     {
       value: '6167865',
       name: 'Toronto, CA'
@@ -25,7 +29,9 @@ const constants = {
       name: 'Tokyo, JP'
     }
   ],
-  unitOptions: [
+
+  // Units data for menu
+  UNIT_OPTIONS: [
     {
       value: 'metric',
       name: 'Metric (°C, meter/sec)'
@@ -37,14 +43,21 @@ const constants = {
       name: 'Standard (K, meter/sec)'
     }
   ],
-  forecastTableHeaders: [
+
+  // Headers for forecast table
+  FORECAST_HEADERS: [
     'Date',
     'Temp',
     'Min Temp',
     'Max Temp',
     'Wind',
     'Description'
-  ]
+  ],
+
+  // Titles and content
+  APP_TITLE: 'Weather App',
+  APP_SUB_TITLE: 'Please select your city and unit preference.',
+  WIND_LABEL: 'Wind'
 };
 
 export default constants;
