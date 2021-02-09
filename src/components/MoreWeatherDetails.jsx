@@ -18,6 +18,8 @@ const MoreWeatherDetails = (props) => {
           <strong>I need a bit more details for today</strong>
         </AccordionSummary>
         <AccordionDetails>
+
+          {/* Raw text content could be handled better... */}
           <div>
             <p>
               Sometimes plain temperature numbers and wind speeds can

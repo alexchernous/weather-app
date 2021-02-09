@@ -31,6 +31,8 @@ const ComfortableWeather = (props) => {
           <strong>What is comfortable weather?</strong>
         </AccordionSummary>
         <AccordionDetails>
+
+          {/* Raw text content could be handled better... */}
           <div>
             <p>
               Although I'm a web app with Canadian biases... <br></br>

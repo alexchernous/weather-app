@@ -18,6 +18,8 @@ const WeatherAnalysis = (props) => {
           <strong>So is it nice out?</strong>
         </AccordionSummary>
         <AccordionDetails>
+
+          {/* Raw text content could be handled better... */}
           <p>
             I did a bit of number crunching,
             and according to my AI biases:
