@@ -12,6 +12,7 @@ import ForecastTable from './components/ForecastTable';
 import MoreWeatherDetails from './components/MoreWeatherDetails';
 import ComfortableWeather from './components/ComfortableWeather';
 import WeatherAnalysis from './components/WeatherAnalysis';
+import AuthenticationErrorMessage from './components/AuthenticationErrorMessage';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -47,6 +48,7 @@ const App = () => {
   const [weatherObject, setWeather] = useState(null);
   const [forecast, setForecast] = useState('');
   const [isForecastShown, setShowForecast] = useState(false);
+  const [isAuthenticationError, setAuthenticationError] = useState(false);
 
   const handleCityChange = (event) => {
     setCityId(event.target.value);
@@ -65,7 +67,11 @@ const App = () => {
     if (cityId) {
       axios.get(`https://api.openweathermap.org/data/2.5/weather?id=${cityId}&units=${units}&appid=${config.appid}`)
         .then(res => { setWeather(res.data) })
-        .catch(error => { console.log(error) });
+        .catch(error => {
+          if (error.response) {
+            setAuthenticationError(error.response.status === 401);
+          }
+        });
 
       /**
        * Potentially unnecessary call if forecast isn't expanded.
@@ -77,7 +83,11 @@ const App = () => {
        */
       axios.get(`https://api.openweathermap.org/data/2.5/forecast?id=${cityId}&units=${units}&appid=${config.appid}`)
         .then(res => { setForecast(res.data) })
-        .catch(error => { console.log(error) });
+        .catch(error => {
+          if (error.response) {
+            setAuthenticationError(error.response.status === 401);
+          }
+        });
     }
   }, [cityId, units]);
 
@@ -118,8 +128,13 @@ const App = () => {
       {/* Menus */}
       {renderMenus}
 
+      {/* Reminder to include appid in config */}
+      {isAuthenticationError && !weatherObject &&
+        <AuthenticationErrorMessage />
+      }
+
       {/* Weather content */}
-      {weatherObject &&
+      {!isAuthenticationError && weatherObject &&
         <div>
           <div className={classes.weatherResults}>
             <div className={classes.weatherMetrics}>
