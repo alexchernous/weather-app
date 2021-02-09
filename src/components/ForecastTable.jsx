@@ -86,6 +86,7 @@ const ForecastTable = (props) => {
     <TableCell
       className={classes.columns}
       key={header}
+      style={{ 'fontWeight': '600' }}
     >
       {header}
     </TableCell>

@@ -1,10 +1,15 @@
 const constants = {
 
   // Unit labels for various measurement standards
+  UNITS: {
+    IMPERIAL: 'imperial',
+    METRIC: 'metric',
+    STANDARD: 'standard'
+  },
   UNIT_LABELS: {
     metric: {
       temp: '°C',
-      speed: 'meter/sec'
+      speed: 'meters/sec'
     },
     imperial: {
       temp: '°F',
@@ -12,7 +17,7 @@ const constants = {
     },
     standard: {
       temp: 'K',
-      speed: 'meter/sec'
+      speed: 'meters/sec'
     }
   },
 
@@ -34,13 +39,13 @@ const constants = {
   UNIT_OPTIONS: [
     {
       value: 'metric',
-      name: 'Metric (°C, meter/sec)'
+      name: 'Metric (°C, meters/sec)'
     }, {
       value: 'imperial',
       name: 'Imperial (°F, miles/hour)'
     }, {
       value: 'standard',
-      name: 'Standard (K, meter/sec)'
+      name: 'Standard (K, meters/sec)'
     }
   ],
 
@@ -57,7 +62,14 @@ const constants = {
   // Titles and content
   APP_TITLE: 'Weather App',
   APP_SUB_TITLE: 'Please select your city and unit preference.',
-  WIND_LABEL: 'Wind'
+  WIND_LABEL: 'Wind',
+
+  // Measurements
+  MIN_TEMP: 0,
+  MAX_TEMP: 30,
+  MAX_WIND: 5,
+  MIN_HUMIDITY: 30,
+  MAX_HUMIDITY: 70
 };
 
 export default constants;

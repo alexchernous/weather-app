@@ -2,12 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
 import axios from 'axios';
 import './lib/styles/App.css';
 import constants from './lib/constants';
 import config from './config/weather';
 import Menu from './components/Menu';
 import ForecastTable from './components/ForecastTable';
+import MoreWeatherDetails from './components/MoreWeatherDetails';
+import ComfortableWeather from './components/ComfortableWeather';
+import WeatherAnalysis from './components/WeatherAnalysis';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -17,7 +21,23 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     marginTop: theme.spacing(2),
-  }
+    marginBottom: theme.spacing(2),
+  },
+  weatherResults: {
+    display: 'flex'
+  },
+  weatherMetrics: {
+    marginRight: '30px'
+  },
+  qualitativeWeather: {
+    display: 'flex',
+    flexDirection: 'column',
+    marginLeft: '30px',
+    marginTop: '20px'
+  },
+  weatherDivider: {
+    marginTop: '20px'
+  },
 }));
 
 const App = () => {
@@ -101,24 +121,47 @@ const App = () => {
       {/* Weather content */}
       {weatherObject &&
         <div>
-          <h4>{weatherObject.weather[0].main}</h4>
-          <p>{weatherObject.weather[0].description}</p>
-          <h4>
-            {
-              weatherObject.main.temp
-              + ' ' +
-              constants.UNIT_LABELS[units].temp
-            }
-          </h4>
-          <p>
-            {
-              constants.WIND_LABEL
-              + ' ' +
-              weatherObject.wind.speed
-              + ' ' +
-              constants.UNIT_LABELS[units].speed
-            }
-          </p>
+          <div className={classes.weatherResults}>
+            <div className={classes.weatherMetrics}>
+              <h4>{weatherObject.weather[0].main}</h4>
+              <p>{weatherObject.weather[0].description}</p>
+              <h4>
+                {
+                  weatherObject.main.temp
+                  + ' ' +
+                  constants.UNIT_LABELS[units].temp
+                }
+              </h4>
+              <p>
+                {
+                  constants.WIND_LABEL
+                  + ' ' +
+                  weatherObject.wind.speed
+                  + ' ' +
+                  constants.UNIT_LABELS[units].speed
+                }
+              </p>
+            </div>
+            <Divider orientation='vertical' flexItem className={classes.weatherDivider} />
+
+            {/* Qualitative weather stuff */}
+            <div className={classes.qualitativeWeather}>
+              <MoreWeatherDetails
+                units={units}
+                temp={weatherObject.main.temp}
+                feelsLike={weatherObject.main.feels_like}
+                wind={weatherObject.wind.speed}
+                humidity={weatherObject.main.humidity}
+              />
+              <ComfortableWeather units={units} />
+              <WeatherAnalysis
+                units={units}
+                temp={weatherObject.main.feels_like}
+                wind={weatherObject.wind.speed}
+                humidity={weatherObject.main.humidity}
+              />
+            </div>
+          </div>
 
           {/* See Forecast button */}
           <div>
