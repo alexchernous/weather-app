@@ -1,5 +1,10 @@
 # Weather App
 
+### Steps for setup
+1. Add `appid` in `src/config/weather.json`
+2. `npm install`
+3. `npm start`
+
 ### Open Weather APIs
 - http://api.openweathermap.org/data/2.5/weather
 - http://api.openweathermap.org/data/2.5/forecast
